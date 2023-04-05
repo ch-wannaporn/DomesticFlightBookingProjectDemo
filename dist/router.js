@@ -5,12 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const home_controller_1 = __importDefault(require("./controllers/home.controller"));
-const app = (0, express_1.default)();
-const port = 3000;
-app.use(express_1.default.static('public'));
-app.set('view engine', 'ejs');
-app.use('/', home_controller_1.default);
-app.listen(port, () => {
-    return console.log(`Express is listening at http://localhost:${port}`);
-});
-//# sourceMappingURL=app.js.map
+const router = express_1.default.Router();
+router.get('/', home_controller_1.default.main);
+module.exports = router;
+//# sourceMappingURL=router.js.map
