@@ -1,4 +1,7 @@
 import { Schema, model, connect } from "mongoose";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 type Setting = {
   city: string;
@@ -38,12 +41,11 @@ const Flight = model<IFlight>("flight", flightSchema);
 
 export async function get() {
   try {
-    await connect(
-      "mongodb+srv://chwannapornst:mingming2543@domesticflightbookingcl.kweqe2i.mongodb.net/DomesticFlightBookingDB"
-    );
+    await connect(process.env.DB_URI);
     const flights = await Flight.find({});
     console.log(flights);
   } catch (e) {
-    console.log(e);
+    console.error(e);
+    throw e;
   }
 }
