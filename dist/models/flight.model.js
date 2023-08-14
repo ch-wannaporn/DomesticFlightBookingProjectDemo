@@ -32,11 +32,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.get = void 0;
+exports.getFlights = void 0;
 const mongoose_1 = require("mongoose");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const flightSchema = new mongoose_1.Schema({
+    airline: { type: String, required: true },
     from: {
         type: {
             city: String,
@@ -57,17 +58,16 @@ const flightSchema = new mongoose_1.Schema({
     tickets: { type: Number, required: true },
 });
 const Flight = (0, mongoose_1.model)("flight", flightSchema);
-function get() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield (0, mongoose_1.connect)(process.env.DB_URI);
-            const flights = yield Flight.find({});
-            console.log(flights);
-        }
-        catch (e) {
-            console.log(e);
-        }
-    });
-}
-exports.get = get;
+const getFlights = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield (0, mongoose_1.connect)(process.env.DB_URI);
+        const flights = yield Flight.find({});
+        return flights;
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+});
+exports.getFlights = getFlights;
 //# sourceMappingURL=flight.model.js.map

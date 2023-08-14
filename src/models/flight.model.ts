@@ -3,13 +3,14 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-type Setting = {
+export type Setting = {
   city: string;
   airport: string;
   date: Date;
 };
 
-interface IFlight {
+export interface IFlight {
+  airline: string;
   from: Setting;
   to: Setting;
   price: number;
@@ -17,6 +18,7 @@ interface IFlight {
 }
 
 const flightSchema = new Schema<IFlight>({
+  airline: { type: String, required: true },
   from: {
     type: {
       city: String,
@@ -39,13 +41,13 @@ const flightSchema = new Schema<IFlight>({
 
 const Flight = model<IFlight>("flight", flightSchema);
 
-export async function get() {
+export const getFlights = async (): Promise<IFlight[]> => {
   try {
     await connect(process.env.DB_URI);
-    const flights = await Flight.find({});
-    console.log(flights);
+    const flights = await Flight.find<IFlight>({});
+    return flights;
   } catch (e) {
     console.error(e);
     throw e;
   }
-}
+};

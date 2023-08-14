@@ -1,12 +1,11 @@
 import { Request, Response, Router } from "express";
-import { get } from "../models/flight.model";
+import { IFlight, getFlights } from "../models/flight.model";
 
 const router = Router();
 
-const home = (req: Request, res: Response) => {
-  console.log("hi");
-  get();
-  res.render("home");
+const home = async (req: Request, res: Response): Promise<void> => {
+  const flights: IFlight[] = await getFlights();
+  res.render("home", { flights });
 };
 
 router.get("/", home);
