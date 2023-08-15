@@ -9,7 +9,7 @@
       >© Copyright {{new Date().getFullYear()}} Wannaporn Chokvisavapornkul
       Company
     </span>
-    <span>Tel: 0618963188</span>
+    <span>Tel: 061-896-3188</span>
   </div>
 </nav>
 </template>
