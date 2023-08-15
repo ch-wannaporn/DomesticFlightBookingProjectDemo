@@ -41,7 +41,7 @@ const flightSchema = new Schema<IFlight>({
 
 const Flight = model<IFlight>("flight", flightSchema);
 
-export const getFlights = async (): Promise<IFlight[]> => {
+const find = async (): Promise<IFlight[]> => {
   try {
     await connect(process.env.DB_URI);
     const flights = await Flight.find<IFlight>({});
@@ -50,4 +50,8 @@ export const getFlights = async (): Promise<IFlight[]> => {
     console.error(e);
     throw e;
   }
+};
+
+export default {
+  find,
 };
