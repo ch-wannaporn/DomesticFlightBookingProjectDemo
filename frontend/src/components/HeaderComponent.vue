@@ -1,3 +1,4 @@
+<template>
 <nav class="flex w-full h-20 justify-center items-center bg-white">
   <div class="flex w-full md:w-2/3 justify-between items-baseline">
     <span class="text-2xl text-violet-500 font-semibold"
@@ -15,3 +16,12 @@
     </div>
   </div>
 </nav>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+    name: 'HeaderComponent'
+})
+</script>

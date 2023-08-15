@@ -1,3 +1,4 @@
+<template>
 <div class="flex w-full md:w-2/3">
   <div class="-mt-12 flex w-full justify-between items-center">
     <div
@@ -78,3 +79,12 @@
     </div>
   </div>
 </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+    name: "SearchBoxComponent"
+})
+</script>

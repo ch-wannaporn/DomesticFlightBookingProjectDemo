@@ -1,3 +1,4 @@
+<template>
 <div
   class="flex w-full h-72 bg-cover bg-bottom justify-center items-center"
   style="
@@ -8,3 +9,12 @@
     >The Easiest Way to Book a Flight in Thailand!</span
   >
 </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+    name: 'BannerComponent'
+})
+</script>
