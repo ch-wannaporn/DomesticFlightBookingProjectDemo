@@ -2,7 +2,6 @@
   <LayoutComponent>
     <BannerComponent/>
     <SearchBoxComponent/>
-
     <div class="mt-8 flex flex-col w-full md:w-2/3">
   <div
     class="my-4 rounded-md shadow-md flex w-full px-8 py-4 bg-white cursor-pointer"
@@ -17,7 +16,7 @@
           <span>Phuket Airport</span>
           <span>Phuket Airport</span>
           <span class="font-semibold text-violet-500 mt-1"
-            >{{ Date.toLocaleString() }}</span
+            >{{ new Date().toLocaleString() }}</span
           >
         </div>
         <div class="flex flex-col">
@@ -25,7 +24,7 @@
           <span>Songkhla Airport</span>
           <span>Had Yai Airport</span>
           <span class="font-semibold text-violet-500 mt-1">
-            {{ Date.toLocaleString() }}
+            {{ new Date().toLocaleString() }}
           </span>
         </div>
         <div class="flex flex-col">
@@ -53,10 +52,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import LayoutComponent from '@/components/Layout/LayoutComponent.vue';
 import BannerComponent from '@/components/Home/BannerComponent.vue';
 import SearchBoxComponent from '@/components/Home/SearchBoxComponent.vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'HomeView',
@@ -64,6 +64,12 @@ export default defineComponent({
     LayoutComponent,
     BannerComponent,
     SearchBoxComponent
-},
+}, 
+setup: () => {
+  const store = useStore()
+  return {
+    flights: computed(() =>  store.getters.flights)
+  }
+}
 });
 </script>

@@ -1,9 +1,12 @@
 import express from "express";
+import cors from "cors";
 
 import flightRouter from "./routers/flight.router";
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 app.use("/flight", flightRouter);
 
