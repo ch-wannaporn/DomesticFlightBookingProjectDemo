@@ -59,6 +59,7 @@ import LayoutComponent from '@/components/Layout/LayoutComponent.vue';
 import BannerComponent from '@/components/Home/BannerComponent.vue';
 import SearchBoxComponent from '@/components/Home/SearchBoxComponent.vue';
 import { useStore } from 'vuex';
+import { getAllFlights } from "../store/actions";
 
 export default defineComponent({
   name: 'HomeView',
@@ -66,12 +67,15 @@ export default defineComponent({
     LayoutComponent,
     BannerComponent,
     SearchBoxComponent
-}, 
-setup: () => {
-  const store = useStore()
-  return {
-    flights: computed(() =>  store.getters.flights)
+  },
+  setup: () => {
+    const store = useStore()
+    getAllFlights(store)
+
+    return {
+      flights: computed(()=> store.getters.flights),
+      loadingStatus: computed(() => store.getters.loadingStatus)
+    }
   }
-}
 });
 </script>
