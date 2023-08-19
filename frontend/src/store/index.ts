@@ -1,5 +1,5 @@
 import { IFlight } from "@/interfaces";
-import { createLogger, createStore } from "vuex";
+import { createStore } from "vuex";
 import * as getters from "./getters";
 import * as mutations from "./mutations";
 import * as actions from "./actions";
@@ -15,5 +15,4 @@ export default createStore({
   getters,
   mutations,
   actions,
-  plugins: [createLogger()],
 });
