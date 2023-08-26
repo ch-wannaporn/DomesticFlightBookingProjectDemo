@@ -7,3 +7,7 @@ export const loadingStatus = (state: IState) => {
 export const flights = (state: IState) => {
   return state.flights;
 };
+
+export const flight = (state: IState) => {
+  return state.flight;
+};

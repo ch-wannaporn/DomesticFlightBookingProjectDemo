@@ -8,3 +8,7 @@ export const setLoadingStatus = (state: IState, status: boolean) => {
 export const setAllFlights = (state: IState, flights: IFlight[]) => {
   state.flights = flights;
 };
+
+export const setFlight = (state: IState, flight: IFlight) => {
+  state.flight = flight;
+};

@@ -12,3 +12,18 @@ export const getAllFlights = async ({ commit }: { commit: Commit }) => {
     throw e;
   }
 };
+
+export const getFlightById = async (
+  { commit }: { commit: Commit },
+  params: { flightId: string }
+) => {
+  try {
+    commit("setLoadingStatus", true);
+    const flight = await api.getFlightById(params.flightId);
+    commit("setFlight", flight);
+    commit("setLoadingStatus", false);
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
