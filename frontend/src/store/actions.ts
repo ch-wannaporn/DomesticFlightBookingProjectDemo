@@ -16,12 +16,12 @@ export const getAllCities = async ({ commit }: { commit: Commit }) => {
 export const getAllFlights = async (
   { commit }: { commit: Commit },
   params?: {
-    from: string;
-    to: string;
-    date: Date;
-    passengers: number;
-    minPrice: number;
-    maxPrice: number;
+    from?: string;
+    to?: string;
+    date?: Date;
+    passengers?: number;
+    minPrice?: number;
+    maxPrice?: number;
   }
 ) => {
   try {

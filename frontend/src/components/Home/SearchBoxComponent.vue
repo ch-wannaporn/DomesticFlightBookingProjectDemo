@@ -6,13 +6,15 @@
       >
         <div class="border-r-4 border-white border-dashed"></div>
       </div>
-      <div
+      <form
         class="grid grid-flows-row grid-cols-3 gap-x-4 gap-y-2 w-3/4 rounded-r-md shadow-md bg-violet-500 px-8 py-4"
       >
         <div class="flex flex-col">
           <label class="text-white font-semibold">From</label>
-          <select class="rounded-md px-2 py-1 focus:outline-none h-8">
-            <option hidden selected>--select--</option>
+          <select
+            class="rounded-md px-2 py-1 focus:outline-none h-8"
+            v-model="searchValues.from"
+          >
             <option v-for="city in cities" :key="city._id" :value="city._id">
               {{ city.name }}
             </option>
@@ -20,8 +22,10 @@
         </div>
         <div class="flex flex-col">
           <label class="text-white font-semibold">To</label>
-          <select class="rounded-md px-2 py-1 focus:outline-none h-8">
-            <option hidden selected>--select--</option>
+          <select
+            class="rounded-md px-2 py-1 focus:outline-none h-8"
+            v-model="searchValues.to"
+          >
             <option v-for="city in cities" :key="city._id" :value="city._id">
               {{ city.name }}
             </option>
@@ -32,6 +36,7 @@
           <input
             type="date"
             class="rounded-md px-2 py-1 focus:outline-none h-8"
+            v-model="searchValues.date"
           />
         </div>
         <div class="flex flex-col">
@@ -39,22 +44,26 @@
           <input
             type="number"
             class="rounded-md px-2 py-1 focus:outline-none h-8"
-            value="0"
-            min="0"
+            min="1"
+            v-model="searchValues.passengers"
           />
         </div>
         <div class="flex flex-col">
           <label class="text-white font-semibold">Price</label>
-          <select class="rounded-md px-2 py-1 focus:outline-none h-8">
-            <option selected hidden>--select--</option>
-            <option>Less than 1,000 Baht</option>
-            <option>1,000 - 2,000 Baht</option>
-            <option>More than 2,000 Baht</option>
+          <select
+            class="rounded-md px-2 py-1 focus:outline-none h-8"
+            v-model="searchValues.price"
+          >
+            <option value="<1000">Less than 1,000 Baht</option>
+            <option value="1000-2000">1,000 - 2,000 Baht</option>
+            <option value=">2000">More than 2,000 Baht</option>
           </select>
         </div>
         <div class="flex w-full items-end">
           <button
+            type="button"
             class="flex justify-center items-center space-x-1 w-full rounded-md px-2 py-1 focus:outline-none h-8 bg-rose-300 hover:bg-rose-400 text-white font-semibold"
+            @click="search"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -69,16 +78,48 @@
             <span>Search</span>
           </button>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+import { Search } from "@/classes/index";
+import { getAllFlights } from "@/store/actions";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "SearchBoxComponent",
   props: ["cities"],
+  setup: () => {
+    const store = useStore();
+    const searchValues = ref(new Search());
+    const minPrice = ref<number>();
+    const maxPrice = ref<number>();
+
+    const search = () => {
+      if (searchValues.value.price && searchValues.value.price.includes("<")) {
+        maxPrice.value = Number(searchValues.value.price.replace("<", ""));
+      }
+
+      if (searchValues.value.price && searchValues.value.price.includes("-")) {
+        minPrice.value = Number(searchValues.value.price.split("-")[0]);
+        maxPrice.value = Number(searchValues.value.price.split("-")[1]);
+      }
+
+      if (searchValues.value.price && searchValues.value.price.includes(">")) {
+        minPrice.value = Number(searchValues.value.price.replace(">", ""));
+      }
+
+      getAllFlights(store, {
+        ...searchValues,
+        ...(minPrice.value && { minPrice: minPrice.value }),
+        ...(maxPrice.value && { maxPrice: maxPrice.value }),
+      });
+    };
+
+    return { searchValues, search };
+  },
 });
 </script>

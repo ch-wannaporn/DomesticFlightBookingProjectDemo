@@ -11,3 +11,15 @@ export class Passenger {
     this.passportNo = "";
   }
 }
+
+export class Search {
+  from?: string;
+  to?: string;
+  date?: Date;
+  passengers?: number;
+  price?: string;
+
+  constructor() {
+    this.from = this.to = this.date = this.passengers = this.price = undefined;
+  }
+}
