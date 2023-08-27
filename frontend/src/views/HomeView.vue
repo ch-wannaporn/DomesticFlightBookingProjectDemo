@@ -3,7 +3,7 @@
   <LayoutComponent v-else>
     <BannerComponent />
     <SearchBoxComponent />
-    <div class="mt-8 flex flex-col w-full md:w-2/3">
+    <div class="mt-8 flex flex-col w-full w-2/3">
       <CardComponent
         v-for="flight in flights"
         :key="flight._id"
@@ -22,6 +22,7 @@ import { useStore } from "vuex";
 import { getAllFlights } from "../store/actions";
 import LoadingView from "./LoadingView.vue";
 import CardComponent from "@/components/Home/CardComponent.vue";
+import { IFlight } from "@/interfaces";
 
 export default defineComponent({
   name: "HomeView",
@@ -38,8 +39,8 @@ export default defineComponent({
     getAllFlights(store);
 
     return {
-      flights: computed(() => store.getters.flights),
-      loadingStatus: computed(() => store.getters.loadingStatus),
+      flights: computed<IFlight[]>(() => store.getters.flights),
+      loadingStatus: computed<boolean>(() => store.getters.loadingStatus),
     };
   },
 });

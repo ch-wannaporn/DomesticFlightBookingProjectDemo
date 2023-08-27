@@ -1,6 +1,6 @@
 <template>
   <nav class="flex w-full h-20 justify-center items-center bg-white shadow-md">
-    <div class="flex w-full md:w-2/3 justify-between items-baseline">
+    <div class="flex w-full w-2/3 justify-between items-baseline">
       <router-link class="text-2xl text-violet-500 font-semibold" to="/"
         >Domestic Flight Booking</router-link
       >

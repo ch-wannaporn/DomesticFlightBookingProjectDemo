@@ -1,20 +1,27 @@
 <template>
   <LoadingView v-if="loadingStatus" />
   <LayoutComponent v-else>
-    <div class="my-8 space-x-4 flex flex-row w-full md:w-2/3">
+    <div class="my-8 space-x-4 flex flex-row w-2/3">
       <div class="basis-2/3 flex flex-col">
         <FlightDetailsComponent :flight="flight" />
         <form>
           <PassengerInformationComponent
-            v-for="index in passengers"
+            v-for="(passenger, index) in passengers"
             :key="index"
             :index="index"
-            @add="passengers++"
+            v-model:first-name="passenger.firstName"
+            v-model:last-name="passenger.lastName"
+            v-model:date-of-birth="passenger.dateOfBirth"
+            v-model:passenger-no="passenger.passportNo"
+            @add-passenger="addPassenger"
+            @remove-passenger="removePassenger"
           />
         </form>
       </div>
-      <div class="basis-1/3 bg-violet-500 rounded-md shadow-md p-8">
-        Summary
+      <div
+        class="basis-1/3 bg-violet-500 rounded-md shadow-md p-8 text-white h-full sticky top-0"
+      >
+        <span class="font-semibold text-lg">Summary</span>
       </div>
     </div>
   </LayoutComponent>
@@ -29,7 +36,9 @@ import { useStore } from "vuex";
 import { getFlightById } from "../store/actions";
 import { useRoute } from "vue-router";
 import LoadingView from "./LoadingView.vue";
-import { loadingStatus } from "@/store/getters";
+import { flight, loadingStatus } from "@/store/getters";
+import { Passenger } from "@/classes";
+import { IFlight } from "@/interfaces";
 
 export default defineComponent({
   name: "BookingView",
@@ -43,16 +52,31 @@ export default defineComponent({
     const route = useRoute();
     const store = useStore();
 
-    const passengers = ref(1);
-
     getFlightById(store, {
       flightId: route.params.flightId as string,
     });
 
+    const flight = computed<IFlight>(() => store.getters.flight);
+    const loadingStatus = computed<boolean>(() => store.getters.loadingStatus);
+
+    const passengers = ref([new Passenger()]);
+    const addPassenger = () => {
+      if (
+        passengers.value.length < flight.value.tickets &&
+        passengers.value.length < 4
+      )
+        passengers.value.push(new Passenger());
+    };
+    const removePassenger = (index: number) => {
+      if (passengers.value.length > 1) passengers.value.splice(index, 1);
+    };
+
     return {
-      flight: computed(() => store.getters.flight),
-      loadingStatus: computed(() => store.getters.loadingStatus),
+      flight,
+      loadingStatus,
       passengers,
+      addPassenger,
+      removePassenger,
     };
   },
 });
