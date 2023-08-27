@@ -12,7 +12,7 @@
             v-model:first-name="passenger.firstName"
             v-model:last-name="passenger.lastName"
             v-model:date-of-birth="passenger.dateOfBirth"
-            v-model:passenger-no="passenger.passportNo"
+            v-model:passport-no="passenger.passportNo"
             @add-passenger="addPassenger"
             @remove-passenger="removePassenger"
           />
