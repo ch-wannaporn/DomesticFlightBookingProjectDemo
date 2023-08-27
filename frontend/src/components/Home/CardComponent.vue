@@ -35,12 +35,7 @@
         <div class="flex flex-col">
           <span class="font-semibold">Price</span>
           <span class="text-xl font-bold"
-            >{{
-              Number(flight.price)
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            }}
-            Baht</span
+            >{{ changeToCurrencyFormat(flight.price) }} Baht</span
           >
           <router-link
             :to="`/booking/${flight._id}`"
@@ -55,10 +50,14 @@
 </template>
 
 <script lang="ts">
+import { changeToCurrencyFormat } from "@/helpers/currency";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CardComponent",
   props: ["flight"],
+  setup: () => {
+    return { changeToCurrencyFormat };
+  },
 });
 </script>

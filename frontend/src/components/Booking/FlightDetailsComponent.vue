@@ -17,11 +17,7 @@
         <span>{{ new Date(flight.from.date).toLocaleString() }}</span>
         <span>{{ flight.to.airport }}, {{ flight.to.city }}</span>
         <span>{{ new Date(flight.to.date).toLocaleString() }}</span>
-        <span>{{
-          Number(flight.price)
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }}</span>
+        <span>{{ changeToCurrencyFormat(flight.price) }} Baht</span>
         <span class="text-violet-600">{{ flight.tickets }}</span>
       </div>
     </div>
@@ -30,9 +26,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { changeToCurrencyFormat } from "@/helpers/currency";
 
 export default defineComponent({
   name: "FlightDetailsComponent",
   props: ["flight"],
+  setup: () => {
+    return { changeToCurrencyFormat };
+  },
 });
 </script>

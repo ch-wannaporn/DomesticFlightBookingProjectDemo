@@ -3,7 +3,7 @@
   <LayoutComponent v-else>
     <BannerComponent />
     <SearchBoxComponent />
-    <div class="mt-8 flex flex-col w-full w-2/3">
+    <div class="mt-8 flex flex-col w-2/3">
       <CardComponent
         v-for="flight in flights"
         :key="flight._id"

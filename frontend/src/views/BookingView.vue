@@ -18,11 +18,7 @@
           />
         </form>
       </div>
-      <div
-        class="basis-1/3 bg-violet-500 rounded-md shadow-md p-8 text-white h-full sticky top-0"
-      >
-        <span class="font-semibold text-lg">Summary</span>
-      </div>
+      <SummaryComponent :flight="flight" :passengers="passengers" />
     </div>
   </LayoutComponent>
 </template>
@@ -39,6 +35,7 @@ import LoadingView from "./LoadingView.vue";
 import { flight, loadingStatus } from "@/store/getters";
 import { Passenger } from "@/classes";
 import { IFlight } from "@/interfaces";
+import SummaryComponent from "@/components/Booking/SummaryComponent.vue";
 
 export default defineComponent({
   name: "BookingView",
@@ -47,6 +44,7 @@ export default defineComponent({
     FlightDetailsComponent,
     LoadingView,
     PassengerInformationComponent,
+    SummaryComponent,
   },
   setup: function () {
     const route = useRoute();
