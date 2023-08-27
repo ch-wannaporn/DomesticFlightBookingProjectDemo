@@ -12,25 +12,19 @@
         <div class="flex flex-col">
           <label class="text-white font-semibold">From</label>
           <select class="rounded-md px-2 py-1 focus:outline-none h-8">
-            <option hidden selected>select</option>
-            <option value="Bangkok">Bangkok</option>
-            <option value="Chiang Mai">Chiang Mai</option>
-            <option value="Chiang Rai">Chiang Rai</option>
-            <option value="Krabi">Krabi</option>
-            <option value="Phuket">Phuket</option>
-            <option value="SongKhla">SongKhla</option>
+            <option hidden selected>--select--</option>
+            <option v-for="city in cities" :key="city._id" :value="city._id">
+              {{ city.name }}
+            </option>
           </select>
         </div>
         <div class="flex flex-col">
           <label class="text-white font-semibold">To</label>
           <select class="rounded-md px-2 py-1 focus:outline-none h-8">
-            <option hidden selected>select</option>
-            <option value="Bangkok">Bangkok</option>
-            <option value="Chiang Mai">Chiang Mai</option>
-            <option value="Chiang Rai">Chiang Rai</option>
-            <option value="Krabi">Krabi</option>
-            <option value="Phuket">Phuket</option>
-            <option value="SongKhla">SongKhla</option>
+            <option hidden selected>--select--</option>
+            <option v-for="city in cities" :key="city._id" :value="city._id">
+              {{ city.name }}
+            </option>
           </select>
         </div>
         <div class="flex flex-col">
@@ -51,12 +45,12 @@
         </div>
         <div class="flex flex-col">
           <label class="text-white font-semibold">Price</label>
-          <input
-            type="number"
-            class="rounded-md px-2 py-1 focus:outline-none h-8"
-            value="0"
-            min="0"
-          />
+          <select class="rounded-md px-2 py-1 focus:outline-none h-8">
+            <option selected hidden>--select--</option>
+            <option>Less than 1,000 Baht</option>
+            <option>1,000 - 2,000 Baht</option>
+            <option>More than 2,000 Baht</option>
+          </select>
         </div>
         <div class="flex w-full items-end">
           <button
@@ -68,7 +62,6 @@
               class="h-4 w-4"
               fill="currentColor"
             >
-              <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
               <path
                 d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
               />
@@ -86,5 +79,6 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "SearchBoxComponent",
+  props: ["cities"],
 });
 </script>

@@ -1,3 +1,8 @@
+export type ICity = {
+  _id: string;
+  name: string;
+};
+
 export type Setting = {
   city: string;
   airport: string;

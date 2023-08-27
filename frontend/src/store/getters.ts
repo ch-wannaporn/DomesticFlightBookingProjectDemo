@@ -4,6 +4,10 @@ export const loadingStatus = (state: IState) => {
   return state.loadingStatus;
 };
 
+export const cities = (state: IState) => {
+  return state.cities;
+};
+
 export const flights = (state: IState) => {
   return state.flights;
 };

@@ -2,7 +2,7 @@
   <LoadingView v-if="loadingStatus" />
   <LayoutComponent v-else>
     <BannerComponent />
-    <SearchBoxComponent />
+    <SearchBoxComponent :cities="cities" />
     <div class="mt-8 flex flex-col w-2/3">
       <CardComponent
         v-for="flight in flights"
@@ -19,10 +19,10 @@ import LayoutComponent from "@/components/Layout/LayoutComponent.vue";
 import BannerComponent from "@/components/Home/BannerComponent.vue";
 import SearchBoxComponent from "@/components/Home/SearchBoxComponent.vue";
 import { useStore } from "vuex";
-import { getAllFlights } from "../store/actions";
+import { getAllCities, getAllFlights } from "../store/actions";
 import LoadingView from "./LoadingView.vue";
 import CardComponent from "@/components/Home/CardComponent.vue";
-import { IFlight } from "@/interfaces";
+import { ICity, IFlight } from "@/interfaces";
 
 export default defineComponent({
   name: "HomeView",
@@ -36,9 +36,11 @@ export default defineComponent({
   setup: () => {
     const store = useStore();
 
+    getAllCities(store);
     getAllFlights(store);
 
     return {
+      cities: computed<ICity[]>(() => store.getters.cities),
       flights: computed<IFlight[]>(() => store.getters.flights),
       loadingStatus: computed<boolean>(() => store.getters.loadingStatus),
     };
