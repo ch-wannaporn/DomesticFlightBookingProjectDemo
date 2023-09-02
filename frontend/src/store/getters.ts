@@ -15,3 +15,7 @@ export const flights = (state: IState) => {
 export const flight = (state: IState) => {
   return state.flight;
 };
+
+export const searchValues = (state: IState) => {
+  return state.searchValues;
+};

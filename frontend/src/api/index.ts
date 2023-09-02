@@ -1,3 +1,4 @@
+import { Search } from "@/classes";
 import { ICity, IFlight } from "../interfaces/index";
 import axios from "axios";
 
@@ -8,9 +9,10 @@ export const getAllCities = async (): Promise<ICity[]> => {
   return response.data;
 };
 
-export const getAllFlights = async (): Promise<IFlight[]> => {
+export const getAllFlights = async (params?: Search): Promise<IFlight[]> => {
   const response = await axios.get<IFlight[]>(
-    `${process.env.VUE_APP_API_URL}/flight`
+    `${process.env.VUE_APP_API_URL}/flight`,
+    { params }
   );
   return response.data;
 };

@@ -94,29 +94,10 @@ export default defineComponent({
   props: ["cities"],
   setup: () => {
     const store = useStore();
-    const searchValues = ref(new Search());
-    const minPrice = ref<number>();
-    const maxPrice = ref<number>();
+    const searchValues = ref(store.getters.searchValues);
 
     const search = () => {
-      if (searchValues.value.price && searchValues.value.price.includes("<")) {
-        maxPrice.value = Number(searchValues.value.price.replace("<", ""));
-      }
-
-      if (searchValues.value.price && searchValues.value.price.includes("-")) {
-        minPrice.value = Number(searchValues.value.price.split("-")[0]);
-        maxPrice.value = Number(searchValues.value.price.split("-")[1]);
-      }
-
-      if (searchValues.value.price && searchValues.value.price.includes(">")) {
-        minPrice.value = Number(searchValues.value.price.replace(">", ""));
-      }
-
-      getAllFlights(store, {
-        ...searchValues,
-        ...(minPrice.value && { minPrice: minPrice.value }),
-        ...(maxPrice.value && { maxPrice: maxPrice.value }),
-      });
+      getAllFlights(store, searchValues.value);
     };
 
     return { searchValues, search };

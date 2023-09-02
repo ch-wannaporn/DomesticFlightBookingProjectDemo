@@ -1,6 +1,8 @@
 import { Schema, model, connect, Types } from "mongoose";
 import * as dotenv from "dotenv";
 import { Collection } from "./index.model";
+import { getEndOfDay, getStartOfDay } from "../helpers/date";
+import { getPriceQuery } from "../helpers/price";
 
 dotenv.config();
 
@@ -42,12 +44,42 @@ const flightSchema = new Schema<IFlight>({
 
 const Flights = model<IFlight>(Collection.FLIGHTS, flightSchema);
 
-const getAllFlights = async (): Promise<IFlight[]> => {
+const getAllFlights = async (params?: {
+  from?: string;
+  to?: string;
+  date?: Date;
+  passengers?: number;
+  price?: string;
+}): Promise<IFlight[]> => {
   try {
     await connect(process.env.DB_URI);
     const flights = await Flights.aggregate<IFlight>([
       {
         $match: {
+          ...(params.from && {
+            "from.cityId": new Types.ObjectId(params.from),
+          }),
+          ...(params.to && {
+            "to.cityId": new Types.ObjectId(params.to),
+          }),
+          ...(params.date && {
+            $or: [
+              {
+                "from.date": {
+                  $gte: getStartOfDay(params.date),
+                  $lte: getEndOfDay(params.date),
+                },
+              },
+              {
+                "to.date": {
+                  $gte: getStartOfDay(params.date),
+                  $lte: getEndOfDay(params.date),
+                },
+              },
+            ],
+          }),
+          ...(params.price && getPriceQuery(params.price)),
+          ...(params.passengers && { ticket: { $gte: params.passengers } }),
           tickets: { $ne: 0 },
         },
       },

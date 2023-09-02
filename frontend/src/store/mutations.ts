@@ -1,5 +1,6 @@
 import { ICity, IFlight } from "@/interfaces";
 import { IState } from ".";
+import { Search } from "@/classes";
 
 export const setLoadingStatus = (state: IState, status: boolean) => {
   state.loadingStatus = status;

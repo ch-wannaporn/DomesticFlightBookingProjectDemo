@@ -1,5 +1,6 @@
 import { Commit } from "vuex";
 import * as api from "../api";
+import { Search } from "@/classes";
 
 export const getAllCities = async ({ commit }: { commit: Commit }) => {
   try {
@@ -15,18 +16,11 @@ export const getAllCities = async ({ commit }: { commit: Commit }) => {
 
 export const getAllFlights = async (
   { commit }: { commit: Commit },
-  params?: {
-    from?: string;
-    to?: string;
-    date?: Date;
-    passengers?: number;
-    minPrice?: number;
-    maxPrice?: number;
-  }
+  params?: Search
 ) => {
   try {
     commit("setLoadingStatus", true);
-    const flights = await api.getAllFlights();
+    const flights = await api.getAllFlights(params);
     commit("setAllFlights", flights);
     commit("setLoadingStatus", false);
   } catch (e) {

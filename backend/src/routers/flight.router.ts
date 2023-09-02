@@ -3,8 +3,8 @@ import flightModel, { IFlight } from "../models/flight.model";
 
 const router = Router();
 
-router.get("/", async (_: Request, res: Response): Promise<void> => {
-  const flights: IFlight[] = await flightModel.getAllFlights();
+router.get("/", async (req: Request, res: Response): Promise<void> => {
+  const flights: IFlight[] = await flightModel.getAllFlights(req.query);
   res.send(flights);
 });
 
