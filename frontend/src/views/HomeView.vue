@@ -22,7 +22,7 @@ import { useStore } from "vuex";
 import { getAllCities, getAllFlights } from "../store/actions";
 import LoadingView from "./LoadingView.vue";
 import CardComponent from "@/components/Home/CardComponent.vue";
-import { ICity, IFlight } from "@/interfaces";
+import { ICity, IFlight } from "@/types";
 
 export default defineComponent({
   name: "HomeView",

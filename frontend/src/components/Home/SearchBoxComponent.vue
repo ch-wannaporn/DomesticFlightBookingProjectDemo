@@ -85,7 +85,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { Search } from "@/classes/index";
 import { getAllFlights } from "@/store/actions";
 import { useStore } from "vuex";
 

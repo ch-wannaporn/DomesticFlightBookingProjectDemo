@@ -4,7 +4,9 @@
   >
     <span class="text-lg flex w-full justify-center">Summary</span>
     <div class="mt-4 flex flex-col">
-      <span class="underline decoration-dashed underline-offset-2">Flight</span>
+      <span class="underline decoration-dashed underline-offset-2 decoration-2"
+        >Flight</span
+      >
       <div class="mt-2 flex flex-col space-y-1">
         <span>{{ flight.airline }}</span>
         <div class="flex flex-row justify-between items-center">
@@ -45,7 +47,7 @@
       </div>
     </div>
     <div class="mt-4 flex flex-col">
-      <span class="underline decoration-dashed underline-offset-2"
+      <span class="underline decoration-dashed underline-offset-2 decoration-2"
         >Passengers</span
       >
       <div class="mt-2 flex flex-col space-y-1">
@@ -81,7 +83,7 @@
       </svg>
 
       <span
-        >Total:
+        >Pay
         {{ changeToCurrencyFormat(flight.price * passengers.length) }}
         Baht</span
       >

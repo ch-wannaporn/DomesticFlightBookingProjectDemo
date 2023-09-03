@@ -17,3 +17,15 @@ export type IFlight = {
   price: number;
   tickets: number;
 };
+
+export type IPassenger = {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  passportNo: string;
+};
+
+export type IBooking = {
+  flightId: string;
+  passengers: IPassenger[];
+};

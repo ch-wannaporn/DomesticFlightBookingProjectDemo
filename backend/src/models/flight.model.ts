@@ -17,7 +17,7 @@ export type IFlight = {
   tickets: number;
 };
 
-export const flightSchema = new Schema<IFlight>({
+const flightSchema = new Schema<IFlight>({
   airline: { type: String, required: true },
   from: {
     type: {

@@ -1,7 +1,7 @@
 import { Commit } from "vuex";
 import * as api from "../api";
 import { Search } from "@/classes";
-import { ICity, IFlight } from "@/types";
+import { IBooking, ICity, IFlight } from "@/types";
 
 export const getAllCities = async ({
   commit,
@@ -42,6 +42,21 @@ export const getFlightById = async (
     commit("setLoadingStatus", true);
     const flight: IFlight = await api.getFlightById(params.flightId);
     commit("setFlight", flight);
+    commit("setLoadingStatus", false);
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+export const createBooking = async (
+  { commit }: { commit: Commit },
+  params: IBooking
+): Promise<void> => {
+  try {
+    commit("setLoadingStatus", true);
+    const booking: IBooking = await api.createBooking(params);
+    console.log(booking);
     commit("setLoadingStatus", false);
   } catch (e) {
     console.error(e);

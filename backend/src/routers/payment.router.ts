@@ -19,9 +19,9 @@ router.post("/create", async (_, res: Response): Promise<void> => {
   try {
     const token: Omise.Tokens.IToken = await createToken({
       card: {
-        name: "JOHN DOE",
+        name: "WANNAPORN CHOKVISAVAPORNKUL",
         city: "Bangkok",
-        postal_code: 10320,
+        postal_code: 10260,
         number: "4242424242424242",
         expiration_month: 2,
         expiration_year: 2027,

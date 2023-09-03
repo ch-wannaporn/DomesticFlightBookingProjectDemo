@@ -32,9 +32,8 @@ import { useStore } from "vuex";
 import { getFlightById } from "../store/actions";
 import { useRoute } from "vue-router";
 import LoadingView from "./LoadingView.vue";
-import { flight, loadingStatus } from "@/store/getters";
 import { Passenger } from "@/classes";
-import { IFlight } from "@/interfaces";
+import { IFlight } from "@/types";
 import SummaryComponent from "@/components/Booking/SummaryComponent.vue";
 
 export default defineComponent({

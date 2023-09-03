@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 
 import flightRouter from "./routers/flight.router";
 import cityRouter from "./routers/city.router";
+import bookingRouter from "./routers/booking.router";
 import paymentRouter from "./routers/payment.router";
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use("/flight", flightRouter);
 app.use("/city", cityRouter);
+app.use("/booking", bookingRouter);
 app.use("/payment", paymentRouter);
 
 app.listen(port, () => {
