@@ -4,17 +4,36 @@ import Omise from "omise";
 const router = Router();
 
 const omise = Omise({
+  publicKey: "pkey_test_5wzfpzvmx7xltfm897c",
   secretKey: "skey_test_5wzen7p45by9gr78t1l",
 });
 
+const createToken = async (
+  options: Omise.Tokens.IRequest
+): Promise<Omise.Tokens.IToken> => {
+  const token = await omise.tokens.create(options);
+  return token;
+};
+
 router.post("/create", async (_, res: Response) => {
   try {
+    const token = await createToken({
+      card: {
+        name: "JOHN DOE",
+        city: "Bangkok",
+        postal_code: 10320,
+        number: "4242424242424242",
+        expiration_month: 2,
+        expiration_year: 2027,
+        security_code: "123",
+      },
+    });
     const charge = await omise.charges.create({
       description: "Charge for order ID: 888",
-      amount: 123400,
+      amount: 330000,
       currency: "thb",
       capture: false,
-      card: process.env.OMISE_TOKEN_ID,
+      card: token.id,
     });
     res.send(charge);
   } catch (e) {
