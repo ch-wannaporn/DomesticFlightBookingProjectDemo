@@ -1,8 +1,5 @@
 import { Schema, model, connect, Types } from "mongoose";
-import * as dotenv from "dotenv";
 import { Collection } from "./index.model";
-
-dotenv.config();
 
 export interface ICity {
   name: string;
@@ -16,7 +13,7 @@ const Cities = model<ICity>(Collection.CITIES, citySchema);
 
 const getAllCities = async (): Promise<ICity[]> => {
   try {
-    await connect(process.env.DB_URI);
+    await connect(process.env.MONGODB_URI);
     const cities = Cities.find<ICity>({});
 
     return cities;

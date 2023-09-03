@@ -1,10 +1,7 @@
 import { Schema, model, connect, Types } from "mongoose";
-import * as dotenv from "dotenv";
 import { Collection } from "./index.model";
 import { getEndOfDay, getStartOfDay } from "../helpers/date";
 import { getPriceQuery } from "../helpers/price";
-
-dotenv.config();
 
 export type Setting = {
   city: string;
@@ -52,7 +49,7 @@ const getAllFlights = async (params?: {
   price?: string;
 }): Promise<IFlight[]> => {
   try {
-    await connect(process.env.DB_URI);
+    await connect(process.env.MONGODB_URI);
     const flights = await Flights.aggregate<IFlight>([
       {
         $match: {
@@ -134,7 +131,7 @@ const getAllFlights = async (params?: {
 
 const getFlightById = async (flightId: string): Promise<IFlight> => {
   try {
-    await connect(process.env.DB_URI);
+    await connect(process.env.MONGODB_URI);
     const flight = await Flights.aggregate<IFlight>([
       {
         $match: {

@@ -60,7 +60,7 @@ const flightSchema = new mongoose_1.Schema({
 const Flight = (0, mongoose_1.model)("flight", flightSchema);
 const getFlights = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, mongoose_1.connect)(process.env.DB_URI);
+        yield (0, mongoose_1.connect)(process.env.MONGODB_URI);
         const flights = yield Flight.find({});
         return flights;
     }
