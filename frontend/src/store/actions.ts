@@ -1,11 +1,16 @@
 import { Commit } from "vuex";
 import * as api from "../api";
 import { Search } from "@/classes";
+import { ICity, IFlight } from "@/types";
 
-export const getAllCities = async ({ commit }: { commit: Commit }) => {
+export const getAllCities = async ({
+  commit,
+}: {
+  commit: Commit;
+}): Promise<void> => {
   try {
     commit("setLoadingStatus", true);
-    const cities = await api.getAllCities();
+    const cities: ICity[] = await api.getAllCities();
     commit("setAllCities", cities);
     commit("setLoadingStatus", false);
   } catch (e) {
@@ -17,10 +22,10 @@ export const getAllCities = async ({ commit }: { commit: Commit }) => {
 export const getAllFlights = async (
   { commit }: { commit: Commit },
   params?: Search
-) => {
+): Promise<void> => {
   try {
     commit("setLoadingStatus", true);
-    const flights = await api.getAllFlights(params);
+    const flights: IFlight[] = await api.getAllFlights(params);
     commit("setAllFlights", flights);
     commit("setLoadingStatus", false);
   } catch (e) {
@@ -32,10 +37,10 @@ export const getAllFlights = async (
 export const getFlightById = async (
   { commit }: { commit: Commit },
   params: { flightId: string }
-) => {
+): Promise<void> => {
   try {
     commit("setLoadingStatus", true);
-    const flight = await api.getFlightById(params.flightId);
+    const flight: IFlight = await api.getFlightById(params.flightId);
     commit("setFlight", flight);
     commit("setLoadingStatus", false);
   } catch (e) {

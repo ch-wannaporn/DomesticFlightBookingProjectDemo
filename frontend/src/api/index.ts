@@ -1,5 +1,5 @@
 import { Search } from "@/classes";
-import { ICity, IFlight } from "../interfaces/index";
+import { ICity, IFlight } from "../types/index";
 import axios from "axios";
 
 export const getAllCities = async (): Promise<ICity[]> => {

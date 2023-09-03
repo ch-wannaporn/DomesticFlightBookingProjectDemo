@@ -1,18 +1,18 @@
-import { ICity, IFlight } from "@/interfaces";
+import { ICity, IFlight } from "@/types";
 import { IState } from ".";
 
-export const setLoadingStatus = (state: IState, status: boolean) => {
+export const setLoadingStatus = (state: IState, status: boolean): void => {
   state.loadingStatus = status;
 };
 
-export const setAllCities = (state: IState, cities: ICity[]) => {
+export const setAllCities = (state: IState, cities: ICity[]): void => {
   state.cities = cities;
 };
 
-export const setAllFlights = (state: IState, flights: IFlight[]) => {
+export const setAllFlights = (state: IState, flights: IFlight[]): void => {
   state.flights = flights;
 };
 
-export const setFlight = (state: IState, flight: IFlight) => {
+export const setFlight = (state: IState, flight: IFlight): void => {
   state.flight = flight;
 };

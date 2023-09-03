@@ -11,13 +11,13 @@ const omise = Omise({
 const createToken = async (
   options: Omise.Tokens.IRequest
 ): Promise<Omise.Tokens.IToken> => {
-  const token = await omise.tokens.create(options);
+  const token: Omise.Tokens.IToken = await omise.tokens.create(options);
   return token;
 };
 
-router.post("/create", async (_, res: Response) => {
+router.post("/create", async (_, res: Response): Promise<void> => {
   try {
-    const token = await createToken({
+    const token: Omise.Tokens.IToken = await createToken({
       card: {
         name: "JOHN DOE",
         city: "Bangkok",
@@ -28,7 +28,7 @@ router.post("/create", async (_, res: Response) => {
         security_code: "123",
       },
     });
-    const charge = await omise.charges.create({
+    const charge: Omise.Charges.ICharge = await omise.charges.create({
       description: "Charge for order ID: 888",
       amount: 330000,
       currency: "thb",

@@ -9,11 +9,11 @@ export type Setting = {
   date: Date;
 };
 
-export interface IFlight {
+export type IFlight = {
   _id: string;
   airline: string;
   from: Setting;
   to: Setting;
   price: number;
   tickets: number;
-}
+};

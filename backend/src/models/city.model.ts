@@ -1,9 +1,9 @@
-import { Schema, model, connect, Types } from "mongoose";
+import { Schema, model, connect } from "mongoose";
 import { Collection } from "./index.model";
 
-export interface ICity {
+export type ICity = {
   name: string;
-}
+};
 
 const citySchema = new Schema<ICity>({
   name: { type: String, required: true },

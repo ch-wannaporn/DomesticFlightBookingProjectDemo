@@ -9,15 +9,15 @@ export type Setting = {
   date: Date;
 };
 
-export interface IFlight {
+export type IFlight = {
   airline: string;
   from: Setting;
   to: Setting;
   price: number;
   tickets: number;
-}
+};
 
-const flightSchema = new Schema<IFlight>({
+export const flightSchema = new Schema<IFlight>({
   airline: { type: String, required: true },
   from: {
     type: {
