@@ -17,27 +17,30 @@ export type IFlight = {
   tickets: number;
 };
 
-const flightSchema = new Schema<IFlight>({
-  airline: { type: String, required: true },
-  from: {
-    type: {
-      city: String,
-      airport: String,
-      date: Date,
+const flightSchema = new Schema<IFlight>(
+  {
+    airline: { type: String, required: true },
+    from: {
+      type: {
+        city: String,
+        airport: String,
+        date: Date,
+      },
+      required: true,
     },
-    required: true,
-  },
-  to: {
-    type: {
-      city: String,
-      airport: String,
-      date: Date,
+    to: {
+      type: {
+        city: String,
+        airport: String,
+        date: Date,
+      },
+      required: true,
     },
-    required: true,
+    price: { type: Number, required: true },
+    tickets: { type: Number, required: true },
   },
-  price: { type: Number, required: true },
-  tickets: { type: Number, required: true },
-});
+  { versionKey: false }
+);
 
 const Flights = model<IFlight>(Collection.FLIGHTS, flightSchema);
 

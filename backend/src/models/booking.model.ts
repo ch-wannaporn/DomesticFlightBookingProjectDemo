@@ -15,23 +15,26 @@ export type IBooking = {
   payment: Omise.Charges.ICharge;
 };
 
-const bookingSchema = new Schema<IBooking>({
-  flightId: { type: Schema.Types.ObjectId, required: true },
-  passengers: {
-    type: [
-      {
-        firstName: String,
-        lastName: String,
-        dateOfBirth: Date,
-        passportNo: String,
-      },
-    ],
-    required: true,
+const bookingSchema = new Schema<IBooking>(
+  {
+    flightId: { type: Schema.Types.ObjectId, required: true },
+    passengers: {
+      type: [
+        {
+          firstName: String,
+          lastName: String,
+          dateOfBirth: Date,
+          passportNo: String,
+        },
+      ],
+      required: true,
+    },
+    payment: {
+      type: Schema.Types.Mixed,
+    },
   },
-  payment: {
-    type: Schema.Types.Mixed,
-  },
-});
+  { versionKey: false }
+);
 
 const Bookings = model<IBooking>(Collection.BOOKINGS, bookingSchema);
 

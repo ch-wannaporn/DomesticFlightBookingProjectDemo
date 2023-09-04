@@ -5,9 +5,12 @@ export type ICity = {
   name: string;
 };
 
-const citySchema = new Schema<ICity>({
-  name: { type: String, required: true },
-});
+const citySchema = new Schema<ICity>(
+  {
+    name: { type: String, required: true },
+  },
+  { versionKey: false }
+);
 
 const Cities = model<ICity>(Collection.CITIES, citySchema);
 
