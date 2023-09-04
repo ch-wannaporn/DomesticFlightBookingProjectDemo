@@ -1,6 +1,6 @@
 <template>
   <div
-    class="basis-1/3 bg-violet-500 rounded-md shadow-md p-8 text-white font-semibold h-full sticky top-0"
+    class="basis-1/3 bg-violet-500 rounded-md shadow-md p-8 text-white font-semibold h-full sticky top-4"
   >
     <span class="text-lg flex w-full justify-center">Summary</span>
     <div class="mt-4 flex flex-col">
@@ -56,7 +56,7 @@
           <span
             >{{ index + 1 }}.
             {{
-              passenger.firstName && passenger.lastName
+              passenger.firstName || passenger.lastName
                 ? `${passenger.firstName} ${passenger.lastName}`
                 : "-"
             }}</span
@@ -65,7 +65,9 @@
       </div>
     </div>
     <button
+      type="button"
       class="mt-4 px-4 py-2 w-full rounded-md bg-rose-300 hover:bg-rose-400 flex flex-row justify-center items-center space-x-1"
+      @click="book"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -92,14 +94,29 @@
 </template>
 
 <script lang="ts">
+import { Passenger } from "@/classes";
 import { changeToCurrencyFormat } from "@/helpers/currency";
-import { defineComponent } from "vue";
+import { createBooking } from "@/store/actions";
+import { flight } from "@/store/getters";
+import { defineComponent, ref } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "SummaryComponent",
   props: ["flight", "passengers"],
-  setup: () => {
-    return { changeToCurrencyFormat };
+  setup: (props) => {
+    const store = useStore();
+    const passengers = ref(store.getters.passengers);
+
+    const book = () => {
+      if (passengers.value.every((passenger: Passenger) => passenger.isValid))
+        createBooking(store, {
+          flightId: props.flight._id,
+          passengers: passengers.value,
+        });
+    };
+
+    return { changeToCurrencyFormat, book };
   },
 });
 </script>

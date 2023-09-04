@@ -1,3 +1,5 @@
+import { Passenger } from "@/classes";
+
 export type ICity = {
   _id: string;
   name: string;
@@ -18,14 +20,7 @@ export type IFlight = {
   tickets: number;
 };
 
-export type IPassenger = {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: Date;
-  passportNo: string;
-};
-
 export type IBooking = {
   flightId: string;
-  passengers: IPassenger[];
+  passengers: Passenger[];
 };

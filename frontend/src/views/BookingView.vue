@@ -4,19 +4,7 @@
     <div class="my-8 space-x-4 flex flex-row w-2/3">
       <div class="basis-2/3 flex flex-col">
         <FlightDetailsComponent :flight="flight" />
-        <form>
-          <PassengerInformationComponent
-            v-for="(passenger, index) in passengers"
-            :key="index"
-            :index="index"
-            v-model:first-name="passenger.firstName"
-            v-model:last-name="passenger.lastName"
-            v-model:date-of-birth="passenger.dateOfBirth"
-            v-model:passport-no="passenger.passportNo"
-            @add-passenger="addPassenger"
-            @remove-passenger="removePassenger"
-          />
-        </form>
+        <PassengerInformationComponent :flight="flight" />
       </div>
       <SummaryComponent :flight="flight" :passengers="passengers" />
     </div>
@@ -54,26 +42,13 @@ export default defineComponent({
     });
 
     const flight = computed<IFlight>(() => store.getters.flight);
+    const passengers = computed<Passenger>(() => store.getters.passengers);
     const loadingStatus = computed<boolean>(() => store.getters.loadingStatus);
-
-    const passengers = ref([new Passenger()]);
-    const addPassenger = () => {
-      if (
-        passengers.value.length < flight.value.tickets &&
-        passengers.value.length < 4
-      )
-        passengers.value.push(new Passenger());
-    };
-    const removePassenger = (index: number) => {
-      if (passengers.value.length > 1) passengers.value.splice(index, 1);
-    };
 
     return {
       flight,
-      loadingStatus,
       passengers,
-      addPassenger,
-      removePassenger,
+      loadingStatus,
     };
   },
 });
