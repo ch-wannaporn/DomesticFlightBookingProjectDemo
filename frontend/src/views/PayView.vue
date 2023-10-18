@@ -43,7 +43,9 @@
           </div>
         </div>
         <button
+          type="button"
           class="font-semibold text-white mt-4 px-4 py-2 w-full rounded-md bg-violet-500 hover:bg-violet-600"
+          @click="pay"
         >
           Confirm
         </button>
@@ -55,9 +57,28 @@
 <script lang="ts">
 import LayoutComponent from "@/components/Layout/LayoutComponent.vue";
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
+import { createPayment } from "@/store/actions";
 
 export default defineComponent({
   name: "PayView",
   components: { LayoutComponent },
+  setup: () => {
+    const store = useStore();
+
+    const pay = () => {
+      createPayment(store, {
+        name: "Wannaporn",
+        card: "42",
+        code: "123",
+        month: 2,
+        year: 2027,
+      });
+    };
+
+    return {
+      pay,
+    };
+  },
 });
 </script>

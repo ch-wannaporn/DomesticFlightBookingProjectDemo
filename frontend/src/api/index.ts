@@ -1,4 +1,4 @@
-import { Search } from "@/classes";
+import { Payment, Search } from "@/classes";
 import { IBooking, ICity, IFlight } from "../types/index";
 import axios from "axios";
 
@@ -30,4 +30,12 @@ export const createBooking = async (booking: IBooking): Promise<IBooking> => {
     }
   );
   return response.data;
+};
+
+export const createPayment = async (payment: Payment): Promise<void> => {
+  await axios.post<IBooking>(`${apiUrl}/payment/pay`, payment, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };

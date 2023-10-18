@@ -1,8 +1,8 @@
 export class Passenger {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   dateOfBirth?: Date;
-  passportNo: string;
+  passportNo?: string;
   isValid: boolean;
   errors: {
     firstName?: string;
@@ -12,10 +12,6 @@ export class Passenger {
   };
 
   constructor() {
-    this.firstName = "";
-    this.lastName = "";
-    this.dateOfBirth = undefined;
-    this.passportNo = "";
     this.isValid = false;
     this.errors = {};
   }
@@ -51,8 +47,12 @@ export class Search {
   date?: Date;
   passengers?: number;
   price?: string;
+}
 
-  constructor() {
-    this.from = this.to = this.date = this.passengers = this.price = undefined;
-  }
+export class Payment {
+  name?: string;
+  card?: string;
+  code?: string;
+  month?: number;
+  year?: number;
 }
