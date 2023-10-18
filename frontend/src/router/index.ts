@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     component: BookingView,
   },
   {
-    path: "/pay",
+    path: "/pay/:bookingId",
     name: "pay",
     component: PayView,
   },

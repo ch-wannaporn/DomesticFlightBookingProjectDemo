@@ -16,21 +16,22 @@ const createToken = async (
 };
 
 router.post("/pay", async (req: Request, res: Response): Promise<void> => {
+  console.log(req.body);
   try {
     const token: Omise.Tokens.IToken = await createToken({
       card: {
-        name: "WANNAPORN CHOKVISAVAPORNKUL",
+        name: req.body.name,
         city: "Bangkok",
         postal_code: 10260,
-        number: "4242424242424242",
-        expiration_month: 2,
-        expiration_year: 2027,
-        security_code: "123",
+        number: req.body.card,
+        expiration_month: req.body.month,
+        expiration_year: req.body.year,
+        security_code: req.body.code,
       },
     });
     const charge: Omise.Charges.ICharge = await omise.charges.create({
       description: "Charge for order ID: 888",
-      amount: 330000,
+      amount: req.body.price * 100,
       currency: "thb",
       capture: false,
       card: token.id,

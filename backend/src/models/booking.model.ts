@@ -17,6 +17,7 @@ export type IPassenger = {
 
 export type IBooking = {
   flightId: Types.ObjectId;
+  price: number;
   passengers: IPassenger[];
   payment: Omise.Charges.ICharge;
   status: Status;
@@ -25,6 +26,7 @@ export type IBooking = {
 const bookingSchema = new Schema<IBooking>(
   {
     flightId: { type: Schema.Types.ObjectId, required: true },
+    price: { type: Number, required: true },
     passengers: {
       type: [
         {
@@ -41,6 +43,7 @@ const bookingSchema = new Schema<IBooking>(
     },
     status: {
       type: String,
+      required: true,
     },
   },
   { versionKey: false }

@@ -97,7 +97,7 @@
 import { Passenger } from "@/classes";
 import { changeToCurrencyFormat } from "@/helpers/currency";
 import { createBooking } from "@/store/actions";
-import { Status } from "@/types";
+import { IBooking, Status } from "@/types";
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -116,14 +116,15 @@ export default defineComponent({
         return passenger.isValid;
       });
 
-    const book = () => {
+    const book = async () => {
       if (isValid()) {
-        createBooking(store, {
+        const booking: IBooking = await createBooking(store, {
           flightId: props.flight._id,
+          price: props.flight.price,
           passengers: passengers.value,
           status: Status.WAITING_FOR_PAYMENT,
         });
-        router.push("/pay");
+        router.push(`/pay/${booking._id}`);
       }
     };
 

@@ -12,6 +12,8 @@ export class Passenger {
   };
 
   constructor() {
+    this.firstName = "";
+    this.lastName = "";
     this.isValid = false;
     this.errors = {};
   }
@@ -55,4 +57,5 @@ export class Payment {
   code?: string;
   month?: number;
   year?: number;
+  price?: number;
 }

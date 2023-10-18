@@ -52,12 +52,13 @@ export const getFlightById = async (
 export const createBooking = async (
   { commit }: { commit: Commit },
   params: IBooking
-): Promise<void> => {
+): Promise<IBooking> => {
   try {
     commit("setLoadingStatus", true);
-    const booking = await api.createBooking(params);
+    const booking: IBooking = await api.createBooking(params);
     commit("setBooking", booking);
     commit("setLoadingStatus", false);
+    return booking;
   } catch (e) {
     console.error(e);
     throw e;
