@@ -32,7 +32,7 @@
           />
         </svg>
       </div>
-      <div class="grid grid-flow-row grid-cols-2 gap-2 items-center mt-4">
+      <div class="grid grid-flow-row grid-cols-2 gap-2 items-start mt-4">
         <div class="flex flex-col">
           <label class="font-semibold text-sm">First Name *</label>
           <input
@@ -47,6 +47,9 @@
             minlength="20"
             required
           />
+          <div class="text-red-500 text-sm">
+            {{ passengers[index].errors.firstName }}
+          </div>
         </div>
         <div class="flex flex-col">
           <label class="font-semibold text-sm">Last Name *</label>
@@ -62,6 +65,9 @@
             minlength="20"
             required
           />
+          <div class="text-red-500 text-sm">
+            {{ passengers[index].errors.lastName }}
+          </div>
         </div>
         <div class="flex flex-col">
           <label class="font-semibold text-sm">Date Of Birth *</label>
@@ -70,12 +76,15 @@
             class="border border-violet-500 px-2 py-1 rounded-md focus:outline-none focus:bg-gray-50"
             :value="passengers[index].dateOfBirth"
             @input="
-              passengers[index].dateOfBirth = new Date(
-                ($event.target as HTMLInputElement).value
-              )
+              passengers[index].dateOfBirth = (
+                $event.target as HTMLInputElement
+              ).value
             "
             required
           />
+          <div class="text-red-500 text-sm">
+            {{ passengers[index].errors.dateOfBirth }}
+          </div>
         </div>
         <div class="flex flex-col">
           <label class="font-semibold text-sm">Passport No. *</label>
@@ -90,6 +99,9 @@
             "
             required
           />
+          <div class="text-red-500 text-sm">
+            {{ passengers[index].errors.passportNo }}
+          </div>
         </div>
       </div>
       <div class="mt-8 flex justify-end">

@@ -22,7 +22,12 @@ export const getFlightById = async (flightId: string): Promise<IFlight> => {
 export const createBooking = async (booking: IBooking): Promise<IBooking> => {
   const response = await axios.post<IBooking>(
     `${apiUrl}/booking/create`,
-    booking
+    booking,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
   );
   return response.data;
 };

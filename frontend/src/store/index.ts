@@ -1,4 +1,4 @@
-import { ICity, IFlight } from "@/types";
+import { IBooking, ICity, IFlight } from "@/types";
 import { createStore } from "vuex";
 import * as getters from "./getters";
 import * as mutations from "./mutations";
@@ -12,6 +12,7 @@ export type IState = {
   flights: IFlight[];
   flight?: IFlight;
   passengers: Passenger[];
+  booking?: IBooking;
 };
 
 export default createStore({
@@ -20,7 +21,6 @@ export default createStore({
     searchValues: new Search(),
     cities: [],
     flights: [],
-    flight: undefined,
     passengers: [new Passenger()],
   },
   getters,

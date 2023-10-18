@@ -35,13 +35,13 @@ export class Passenger {
 
     if (
       this.dateOfBirth &&
-      date.getFullYear() - this.dateOfBirth.getFullYear() < 0
+      date.getFullYear() - new Date(this.dateOfBirth).getFullYear() < 0
     )
       this.errors.dateOfBirth = "Age should be equal or more than 0.";
 
     if (!this.passportNo) this.errors.passportNo = "Passport No. is required.";
 
-    this.isValid = true;
+    this.isValid = !Object.values(this.errors).some((err) => err);
   }
 }
 

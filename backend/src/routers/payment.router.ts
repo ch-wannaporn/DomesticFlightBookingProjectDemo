@@ -1,4 +1,4 @@
-import { Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import Omise from "omise";
 
 const router = Router();
@@ -15,7 +15,7 @@ const createToken = async (
   return token;
 };
 
-router.post("/create", async (_, res: Response): Promise<void> => {
+router.post("/pay", async (req: Request, res: Response): Promise<void> => {
   try {
     const token: Omise.Tokens.IToken = await createToken({
       card: {

@@ -55,8 +55,8 @@ export const createBooking = async (
 ): Promise<void> => {
   try {
     commit("setLoadingStatus", true);
-    const booking: IBooking = await api.createBooking(params);
-    console.log(booking);
+    const booking = await api.createBooking(params);
+    commit("setBooking", booking);
     commit("setLoadingStatus", false);
   } catch (e) {
     console.error(e);

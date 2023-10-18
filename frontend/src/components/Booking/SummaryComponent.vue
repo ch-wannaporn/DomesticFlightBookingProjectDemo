@@ -97,23 +97,34 @@
 import { Passenger } from "@/classes";
 import { changeToCurrencyFormat } from "@/helpers/currency";
 import { createBooking } from "@/store/actions";
-import { flight } from "@/store/getters";
+import { Status } from "@/types";
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 export default defineComponent({
   name: "SummaryComponent",
   props: ["flight", "passengers"],
   setup: (props) => {
+    const router = useRouter();
     const store = useStore();
     const passengers = ref(store.getters.passengers);
 
+    const isValid = () =>
+      passengers.value.every((passenger: Passenger) => {
+        passenger.validate();
+        return passenger.isValid;
+      });
+
     const book = () => {
-      if (passengers.value.every((passenger: Passenger) => passenger.isValid))
+      if (isValid()) {
         createBooking(store, {
           flightId: props.flight._id,
           passengers: passengers.value,
+          status: Status.WAITING_FOR_PAYMENT,
         });
+        router.push("/pay");
+      }
     };
 
     return { changeToCurrencyFormat, book };

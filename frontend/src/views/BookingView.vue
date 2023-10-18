@@ -15,7 +15,7 @@
 import LayoutComponent from "@/components/Layout/LayoutComponent.vue";
 import FlightDetailsComponent from "@/components/Booking/FlightDetailsComponent.vue";
 import PassengerInformationComponent from "@/components/Booking/PassengerInformationComponent.vue";
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
 import { getFlightById } from "../store/actions";
 import { useRoute } from "vue-router";

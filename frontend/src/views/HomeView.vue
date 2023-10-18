@@ -15,14 +15,14 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
+import { useStore } from "vuex";
+import { getAllCities, getAllFlights } from "../store/actions";
+import { ICity, IFlight } from "@/types";
 import LayoutComponent from "@/components/Layout/LayoutComponent.vue";
 import BannerComponent from "@/components/Home/BannerComponent.vue";
 import SearchBoxComponent from "@/components/Home/SearchBoxComponent.vue";
-import { useStore } from "vuex";
-import { getAllCities, getAllFlights } from "../store/actions";
 import LoadingView from "./LoadingView.vue";
 import CardComponent from "@/components/Home/CardComponent.vue";
-import { ICity, IFlight } from "@/types";
 
 export default defineComponent({
   name: "HomeView",

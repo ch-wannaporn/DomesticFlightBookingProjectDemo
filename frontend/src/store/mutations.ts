@@ -1,4 +1,4 @@
-import { ICity, IFlight } from "@/types";
+import { IBooking, ICity, IFlight } from "@/types";
 import { IState } from ".";
 
 export const setLoadingStatus = (state: IState, status: boolean): void => {
@@ -15,4 +15,8 @@ export const setAllFlights = (state: IState, flights: IFlight[]): void => {
 
 export const setFlight = (state: IState, flight: IFlight): void => {
   state.flight = flight;
+};
+
+export const setBooking = (state: IState, booking: IBooking): void => {
+  state.booking = booking;
 };

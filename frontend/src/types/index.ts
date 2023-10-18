@@ -20,7 +20,14 @@ export type IFlight = {
   tickets: number;
 };
 
+export enum Status {
+  WAITING_FOR_PAYMENT = "pending",
+  PAYMENT_PAID = "paid",
+  PAYMENT_FAILED = "failed",
+}
+
 export type IBooking = {
   flightId: string;
   passengers: Passenger[];
+  status: Status;
 };

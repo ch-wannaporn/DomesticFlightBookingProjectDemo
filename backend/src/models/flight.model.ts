@@ -42,7 +42,7 @@ const flightSchema = new Schema<IFlight>(
   { versionKey: false }
 );
 
-const Flights = model<IFlight>(Collection.FLIGHTS, flightSchema);
+export const Flights = model<IFlight>(Collection.FLIGHTS, flightSchema);
 
 const getAllFlights = async (params?: {
   from?: string;
