@@ -76,19 +76,19 @@ import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import { createPayment } from "@/store/actions";
 import { Payment } from "@/classes";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   name: "PayView",
   components: { LayoutComponent },
   setup: () => {
+    const route = useRoute();
     const store = useStore();
-    const payment = ref(new Payment());
+    const bookingId = route.params.bookingId as string;
+    const payment = ref(new Payment(bookingId));
 
     const pay = () => {
-      createPayment(store, {
-        ...payment.value,
-        price: store.getters.booking.price,
-      });
+      createPayment(store, payment.value);
     };
 
     return {

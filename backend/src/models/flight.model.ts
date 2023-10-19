@@ -1,7 +1,8 @@
-import { Schema, model, connect, Types } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { Collection } from "./index.model";
 import { getEndOfDay, getStartOfDay } from "../helpers/date";
 import { getPriceQuery } from "../helpers/price";
+import { IBooking } from "./booking.model";
 
 export type Setting = {
   city: string;
@@ -52,7 +53,6 @@ const getAllFlights = async (params?: {
   price?: string;
 }): Promise<IFlight[]> => {
   try {
-    await connect(process.env.MONGODB_URI);
     const flights = await Flights.aggregate<IFlight>([
       {
         $match: {
@@ -134,7 +134,6 @@ const getAllFlights = async (params?: {
 
 const getFlightById = async (flightId: string): Promise<IFlight> => {
   try {
-    await connect(process.env.MONGODB_URI);
     const flight = await Flights.aggregate<IFlight>([
       {
         $match: {
@@ -191,7 +190,28 @@ const getFlightById = async (flightId: string): Promise<IFlight> => {
   }
 };
 
+export const buyTickets = async (booking: IBooking): Promise<void> => {
+  try {
+    const updatedFlight = await Flights.updateOne<IFlight>(
+      {
+        _id: booking.flightId,
+        tickets: { $gte: 100000000 },
+      },
+      {
+        $inc: { tickets: -booking.passengers.length },
+      }
+    );
+    if (updatedFlight.modifiedCount <= 0) {
+      throw new Error("There is no available seat.");
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 export default {
   getAllFlights,
   getFlightById,
+  buyTickets,
 };

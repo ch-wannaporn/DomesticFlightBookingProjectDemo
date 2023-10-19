@@ -1,3 +1,5 @@
+import { IBooking } from "@/types";
+
 export class Passenger {
   firstName?: string;
   lastName?: string;
@@ -57,5 +59,9 @@ export class Payment {
   code?: string;
   month?: number;
   year?: number;
-  price?: number;
+  bookingId: string;
+
+  constructor(bookingId: string) {
+    this.bookingId = bookingId;
+  }
 }

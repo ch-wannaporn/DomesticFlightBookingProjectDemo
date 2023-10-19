@@ -1,5 +1,7 @@
 import { Request, Response, Router } from "express";
 import Omise from "omise";
+import bookingModel, { IBooking } from "../models/booking.model";
+import flightModel from "../models/flight.model";
 
 const router = Router();
 
@@ -16,27 +18,41 @@ const createToken = async (
 };
 
 router.post("/pay", async (req: Request, res: Response): Promise<void> => {
-  console.log(req.body);
   try {
+    const { name, card, month, year, code, bookingId } = req.body;
+
+    const booking: IBooking = await bookingModel.getBookingById(bookingId);
+
+    await flightModel.buyTickets(booking);
+
     const token: Omise.Tokens.IToken = await createToken({
       card: {
-        name: req.body.name,
-        city: "Bangkok",
-        postal_code: 10260,
-        number: req.body.card,
-        expiration_month: req.body.month,
-        expiration_year: req.body.year,
-        security_code: req.body.code,
+        name: name,
+        city: process.env.OMISE_CITY,
+        postal_code: process.env.OMISE_POSTAL_CODE,
+        number: card,
+        expiration_month: month,
+        expiration_year: year,
+        security_code: code,
       },
     });
-    const charge: Omise.Charges.ICharge = await omise.charges.create({
-      description: "Charge for order ID: 888",
-      amount: req.body.price * 100,
+    let charge: Omise.Charges.ICharge = await omise.charges.create({
+      description: `Charge for booking ID: ${booking._id}`,
+      amount: booking.price * 100,
       currency: "thb",
       capture: false,
       card: token.id,
     });
-    res.send(charge);
+    charge = await omise.charges.capture(charge.id);
+
+    const updatedbooking: IBooking =
+      await bookingModel.updatePaymentIdToBooking({
+        paymentId: charge.id,
+        bookingId: booking._id,
+        status: charge.paid,
+      });
+
+    res.send(updatedbooking);
   } catch (e) {
     console.error(e);
     throw e;

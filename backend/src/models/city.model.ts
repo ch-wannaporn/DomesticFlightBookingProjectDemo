@@ -16,7 +16,6 @@ const Cities = model<ICity>(Collection.CITIES, citySchema);
 
 const getAllCities = async (): Promise<ICity[]> => {
   try {
-    await connect(process.env.MONGODB_URI);
     const cities = Cities.find<ICity>({});
 
     return cities;

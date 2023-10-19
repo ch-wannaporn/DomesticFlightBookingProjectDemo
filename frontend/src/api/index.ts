@@ -33,7 +33,7 @@ export const createBooking = async (booking: IBooking): Promise<IBooking> => {
 };
 
 export const createPayment = async (payment: Payment): Promise<void> => {
-  await axios.post<IBooking>(`${apiUrl}/payment/pay`, payment, {
+  await axios.post<void>(`${apiUrl}/payment/pay`, payment, {
     headers: {
       "Content-Type": "application/json",
     },

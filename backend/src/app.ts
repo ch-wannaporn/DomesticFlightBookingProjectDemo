@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
+import { connect } from "mongoose";
 
 import flightRouter from "./routers/flight.router";
 import cityRouter from "./routers/city.router";
@@ -20,6 +21,7 @@ app.use("/city", cityRouter);
 app.use("/booking", bookingRouter);
 app.use("/payment", paymentRouter);
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  await connect(process.env.MONGODB_URI);
   return console.log(`Express is listening at http://localhost:${port}`);
 });
