@@ -1,5 +1,3 @@
-import { IBooking } from "@/types";
-
 export class Passenger {
   firstName?: string;
   lastName?: string;

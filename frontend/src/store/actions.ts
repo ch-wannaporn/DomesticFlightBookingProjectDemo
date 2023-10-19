@@ -68,7 +68,7 @@ export const createBooking = async (
 export const createPayment = async (
   { commit }: { commit: Commit },
   params: Payment
-) => {
+): Promise<void> => {
   try {
     commit("setLoadingStatus", true);
     const booking = await api.createPayment(params);

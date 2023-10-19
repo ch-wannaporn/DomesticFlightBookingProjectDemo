@@ -16,6 +16,7 @@ export type IPassenger = {
 
 export type IBooking = {
   _id?: ObjectId;
+  email: string;
   flightId: ObjectId;
   paymentId: string;
   price: number;

@@ -28,6 +28,7 @@ export enum Status {
 
 export type IBooking = {
   _id?: string;
+  email: string;
   flightId: string;
   price: number;
   passengers: Passenger[];

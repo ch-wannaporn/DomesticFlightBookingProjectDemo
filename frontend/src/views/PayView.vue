@@ -1,4 +1,5 @@
 <template>
+  <LoadingView v-if="loadingStatus" />
   <LayoutComponent>
     <div class="flex w-full justify-center items-center">
       <form
@@ -72,7 +73,8 @@
 
 <script lang="ts">
 import LayoutComponent from "@/components/Layout/LayoutComponent.vue";
-import { defineComponent, ref } from "vue";
+import LoadingView from "./LoadingView.vue";
+import { computed, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import { createPayment } from "@/store/actions";
 import { Payment } from "@/classes";
@@ -80,7 +82,7 @@ import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   name: "PayView",
-  components: { LayoutComponent },
+  components: { LayoutComponent, LoadingView },
   setup: () => {
     const route = useRoute();
     const router = useRouter();
@@ -88,14 +90,15 @@ export default defineComponent({
     const bookingId = route.params.bookingId as string;
     const payment = ref(new Payment(bookingId));
 
-    const pay = () => {
-      createPayment(store, payment.value);
+    const pay = async () => {
+      await createPayment(store, payment.value);
       router.push("/tickets");
     };
 
     return {
       payment,
       pay,
+      loadingStatus: computed(() => store.getters.loadingStatus),
     };
   },
 });
