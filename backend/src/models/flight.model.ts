@@ -195,7 +195,7 @@ export const buyTickets = async (booking: IBooking): Promise<void> => {
     const updatedFlight = await Flights.updateOne<IFlight>(
       {
         _id: booking.flightId,
-        tickets: { $gte: 100000000 },
+        tickets: { $gte: booking.passengers.length },
       },
       {
         $inc: { tickets: -booking.passengers.length },
