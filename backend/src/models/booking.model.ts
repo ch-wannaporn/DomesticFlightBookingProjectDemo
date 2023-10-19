@@ -26,6 +26,7 @@ export type IBooking = {
 
 const bookingSchema = new Schema<IBooking>(
   {
+    email: { type: String, required: true },
     flightId: { type: Schema.Types.ObjectId, required: true },
     paymentId: { type: String },
     price: { type: Number, required: true },

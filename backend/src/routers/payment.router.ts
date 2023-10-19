@@ -3,6 +3,7 @@ import Omise from "omise";
 import bookingModel, { IBooking } from "../models/booking.model";
 import flightModel from "../models/flight.model";
 import { generateQr } from "../helpers/qrcode";
+import { sendEmail } from "../helpers/mail";
 
 const router = Router();
 
@@ -55,7 +56,7 @@ router.post("/pay", async (req: Request, res: Response): Promise<void> => {
     const charge = await createCharge(req, booking);
 
     const qrcode: string = await generateQr("https://www.google.com");
-    // await sendTickets(booking.email, qrcode);
+    await sendEmail(booking.email, qrcode);
 
     const updatedbooking: IBooking =
       await bookingModel.updatePaymentIdToBooking({

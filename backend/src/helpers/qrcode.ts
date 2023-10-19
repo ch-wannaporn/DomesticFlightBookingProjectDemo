@@ -1,4 +1,3 @@
-import fs from "fs";
 import qrcode from "qrcode";
 
 export const generateQr = async (link: string): Promise<string> => {

@@ -109,7 +109,7 @@ export default defineComponent({
   setup: (props) => {
     const router = useRouter();
     const store = useStore();
-    const { user, isAuthenticated } = useAuth0();
+    const { user } = useAuth0();
     const passengers = ref(store.getters.passengers);
 
     const isValid = computed(() =>
@@ -120,10 +120,10 @@ export default defineComponent({
     );
 
     const book = async () => {
-      if (isValid.value && isAuthenticated) {
+      if (isValid.value && user.value?.email) {
         const booking: IBooking = await createBooking(store, {
           flightId: props.flight._id,
-          email: (user as User).email as string,
+          email: user.value.email,
           price: props.flight.price,
           passengers: passengers.value,
           status: Status.WAITING_FOR_PAYMENT,
