@@ -92,7 +92,7 @@ export default defineComponent({
 
     const pay = async () => {
       await createPayment(store, payment.value);
-      router.push("/tickets");
+      router.push("/mail");
     };
 
     return {
