@@ -1,4 +1,4 @@
-import { Schema, model, Types } from "mongoose";
+import { Schema, model, Types, ObjectId } from "mongoose";
 import { Collection } from "./index.model";
 import { getEndOfDay, getStartOfDay } from "../helpers/date";
 import { getPriceQuery } from "../helpers/price";
@@ -11,6 +11,7 @@ export type Setting = {
 };
 
 export type IFlight = {
+  _id?: ObjectId;
   airline: string;
   from: Setting;
   to: Setting;

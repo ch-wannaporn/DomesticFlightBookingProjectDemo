@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import Omise from "omise";
 import bookingModel, { IBooking } from "../models/booking.model";
-import flightModel from "../models/flight.model";
+import flightModel, { IFlight } from "../models/flight.model";
 import { generateQr } from "../helpers/qrcode";
 import { sendEmail } from "../helpers/mail";
 
@@ -50,12 +50,15 @@ router.post("/pay", async (req: Request, res: Response): Promise<void> => {
   try {
     const { bookingId } = req.body;
     const booking: IBooking = await bookingModel.getBookingById(bookingId);
+    const flight: IFlight = await flightModel.getFlightById(
+      String(booking.flightId)
+    );
 
     await flightModel.buyTickets(booking);
 
     const charge = await createCharge(req, booking);
 
-    const qrcode: string = await generateQr("https://www.google.com");
+    const qrcode: string = await generateQr(booking, flight);
     await sendEmail(booking.email, qrcode);
 
     const updatedbooking: IBooking =
