@@ -1,24 +1,11 @@
-# frontend
+# Domestic Flight Booking Project
 
-## Project setup
-```
-npm install
-```
+## Features
 
-### Compiles and hot-reloads for development
 ```
-npm run serve
+1. Display all available flights
+2. Filter flights by departure, destination, date, number of passengers and price
+3. Save user information and make a booking
+4. Create Omise payment and capture
+5. Send email with e-tickets qr code
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
